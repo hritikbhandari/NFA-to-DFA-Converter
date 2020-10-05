@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NFA to DFA</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+
+    <!-- CSS -->
+    <link href="NFAtoDFA.css" rel="stylesheet" />
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script
+      src="https://unpkg.com/viz.js@1.8.1/viz.js"
+      type="javascript/worker"
+    ></script>
+    <script src="https://unpkg.com/d3-graphviz@2.6.1/build/d3-graphviz.js"></script>
+
+    <!-- Automata NFAtoDFA engine -->
+    <script src="NFAtoDFA-ENGINE.js"></script>
+
+    <!-- Automata NFAtoDFA DOM -->
+    <script src="NFAtoDFA-DOM.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-default">
+      <h3 class="navbar-text">NFA to DFA Converter</h3>
+    </div>
+    <div class="container">
+      <h1>Input the NFA</h1>
+      <p class="instructions">
+        Enter the non-deterministic automata (NFA) transitions here, then define
+        the final states and initial state.
+      </p>
+      <ul class="instructions-list">
+        <li>
+          The left-hand current state of each transition must be filled in.
+        </li>
+        <li>
+          [ &lambda; ] - An empty text field corresponds to lambda (or epsilon).
+        </li>
+        <li>
+          The finite set of states ( <i>Q</i> ) and the alphabet ( &Sigma; )
+          will be generated automatically based on the transitions entered.
+        </li>
+        <li>Inputs are case-sensitive and whitespace is not ignored.</li>
+        <li>All entries should be delimited by a comma, if permitted.</li>
+      </ul>
+      <button
+        type="button"
+        class="btn btn-danger"
+        id="resetBtn"
+        title="Reset the current NFA"
+      >
+        Reset
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        id="exampleBtn"
+        title="Fill in an example NFA"
+      >
+        Example
+      </button>
+      <form class="form-horizontal" id="nfa" role="form">
+        <form class="form-horizontal">
+          <div class="form-group form-inline" style="margin-left: 15px">
+            <label for="initialStateInput">Initial State:&nbsp;&nbsp;</label>
+            <input type="text" class="form-control" id="initialStateInput" />
+          </div>
+          <div class="form-group form-inline" style="margin-left: 15px">
+            <label for="finalStatesInput">Final States:&nbsp;</label>
+            <input type="text" class="form-control" id="finalStatesInput" />
+          </div>
+        </form>
+        <div class="form-inline" id="nfa-transitions">
+          <div class="production-row">
+            &delta;(&nbsp;<input
+              type="text"
+              class="form-control current-state-input"
+            />&nbsp;,&nbsp;<input
+              type="text"
+              class="form-control input-symbol"
+              placeholder="&lambda;"
+            />&nbsp;)&nbsp;=&nbsp;<input
+              type="text"
+              class="form-control next-states"
+            />
+            <span
+              class="glyphicon glyphicon-remove-circle remove-button"
+              title="Remove this transition"
+            ></span>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+      <div class="clearfix"></div>
+
+      <div class="col-xs-6 new-production">
+        <button
+          id="new-transition"
+          type="button"
+          class="btn btn-default btn-lg btn-block"
+          title="Create a new transition"
+        >
+          <span class="glyphicon glyphicon-plus"></span> &nbsp;Click here or
+          press &quot;Enter&quot; for a new transition
+        </button>
+      </div>
+
+      <div class="clearfix"></div>
+      <h1 id="verify-update-debug">Verify</h1>
+
+      <p>This is the NFA you have input above:</p>
+      <span id="current-nfa-status"></span>
+      <div id="current-nfa"></div>
+
+      <div class="clearfix"></div>
+      <h1>Equivalent DFA</h1>
+      <div class="row">
+        <div class="col-lg">
+          <span id="current-dfa-status"></span>
+          <div id="current-dfa"></div>
+        </div>
+        <div id="step-div" class="col-lg"></div>
+      </div>
+
+      <h1>Minimized DFA</h1>
+      <span id="current-dfa-minimized-status"></span>
+      <div id="current-dfa-minimized"></div>
+
+      <div class="footer"></div>
+      <h1>About</h1>
+      <ul>
+        <li>
+          Made by Team <a href="https://github.com/hritikbhandari"> Hritik</a>
+        </li>
+        <li>
+          Visualization Credits
+          <a href="https://github.com/mdaines/viz.js" target="_blank">Viz.js</a>
+          library.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
