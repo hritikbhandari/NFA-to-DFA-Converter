@@ -1,81 +1,86 @@
 .instructions {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .instructions-list {
-    padding-left: 30px;
+  padding-left: 30px;
 }
 
 .btn {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .col-xs-nt,
 .col-xs-pr {
-    min-height: 1px;
-    padding-right: 10px;
-    padding-left: 10px;
-    position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+  position: relative;
 }
 
 .col-xs-nt {
-    float: left;
-    min-width: 60px;
-    width: 5.5%;
+  float: left;
+  min-width: 60px;
+  width: 5.5%;
 }
 
 .col-xs-pr {
-    float: left;
-    min-width: 100px;
-    width: 9%;
+  float: left;
+  min-width: 100px;
+  width: 9%;
 }
 
 div.arrow,
 div.or,
 div.remove {
-    display: inline-block;
-    float: left;
-    font-size: 20px;
-    height: 34px;
-    line-height: 34px;
-    vertical-align: middle;
+  display: inline-block;
+  float: left;
+  font-size: 20px;
+  height: 34px;
+  line-height: 34px;
+  vertical-align: middle;
 }
 
 div.production-row {
-    min-height: 34px;
-    margin: 5px 17px;
-    font-size: larger;
+  min-height: 34px;
+  margin: 5px 17px;
+  font-size: larger;
+}
+
+.main-part {
+  text-align: center;
+  align-items: center;
 }
 
 span.remove-button {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 span.remove-button:hover {
-    background: #555555;
-    border-radius: 10px;
-    color: #AAAAAA;
-    cursor: pointer;
+  background: #555555;
+  border-radius: 10px;
+  color: #aaaaaa;
+  cursor: pointer;
 }
 
 div.new-production {
-    margin-top: 10px;
-    min-width: 480px;
+  margin-top: 10px;
+  min-width: 480px;
 }
 
 #nfa {
-    margin-top: 10px;
-    padding: 10px 0px;
+  margin-top: 10px;
+  padding: 10px 0px;
 }
 
 #current-nfa {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .production-row input {
-    max-width: 100px;
+  max-width: 100px;
 }
 
-div.footer p {
-    margin: 5px;
+.footer {
+  text-align: center;
 }
